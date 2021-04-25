@@ -1,0 +1,7 @@
+{
+  "name": "Ankur Oberoi",
+  "icons": [
+    { "src": "/icon-192.v1.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.v1.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

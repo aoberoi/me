@@ -14,9 +14,12 @@ server. But 😩 PHP - it wasn't very fun to work on. I'm a big fan of working i
 [Ghost](https://ghost.org/) platform came out, I tried again. Despite it being an open source project, I felt like it
 limited my ability to change much without making a serious investment in learning the codebase.
 
+**Update (April 27, 2021)**: The next paragraph is out of date. I've since transitioned to using Next.js and I love it!
+I'll make a more meaningful update to this post soon.
+
 I'm doing something different this time. I'm using [Gatsby](https://www.gatsbyjs.org/) to build the site and hosting it
 on [Now by Zeit](https://zeit.co/home). Gatsby starts small, and allows me to be intentional about the parts I want to
-add over time. It also lets me flex my programming muscles with a more modern set of tecnologies: React, GraphQL, and
+add over time. It also lets me flex my programming muscles with a more modern set of technologies: React, GraphQL, and
 TypeScript. Now is extremely well-designed and has the best combination of simplicity, power, and price that I've found.
 I feel pretty good about this. So good, in fact, that I've shared [the source on GitHub](https://github.com/aoberoi/me).
 

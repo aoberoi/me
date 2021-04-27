@@ -1,7 +1,7 @@
 import type { GetStaticProps } from 'next';
 import { Post, getAllPosts } from '../lib/post';
 import { formatInTimeZone } from '../lib/date';
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
 import Link from 'next/link';
 
 interface HomeProps {
@@ -12,7 +12,7 @@ export default function Home({ posts }: HomeProps) {
   return (
     <Layout>
       <section className="max-w-screen-lg mx-auto px-4">
-        <h2 className="text-2xl font-banner">Recent Posts</h2>
+        <h2 className="text-2xl font-banner my-2">Recent Posts</h2>
         <table className="w-full mx-0 mt-0 mb-4 p-0">
           <tbody>
             {posts.map((post) => (

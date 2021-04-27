@@ -1,5 +1,6 @@
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
+const typography = require('@tailwindcss/typography');
 
 // Override default gray from Cool Gray to Gray
 const themeColors = { ...defaultTheme.colors, ...{ gray: colors.gray } };
@@ -18,5 +19,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    typography,
+  ],
 }

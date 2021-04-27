@@ -3,6 +3,8 @@ import { join as pathJoin } from 'path';
 import { types } from 'util';
 import { readdir, readFile } from 'fs/promises';
 import matter, { GrayMatterFile, Input } from 'gray-matter';
+import remark from 'remark';
+import html from 'remark-html';
 
 
 export interface Post extends JsonObject {
@@ -16,28 +18,32 @@ export interface Post extends JsonObject {
 
 const postsDirectory = pathJoin(process.cwd(), '_posts');
 
+const markdownProcessor = remark().use(html);
+
 function filenameToSlug(filename: string): string {
   return filename.replace(/\.md$/, '');
 }
 
-// function slugToFilename(slug: string): string {
-//   return `${slug}.md`;
-// }
-
-function fileToPost(file: GrayMatterFile<Input>, slug: string): Post | undefined {
-  if (typeof file.data.title === 'string' && types.isDate(file.data.date)) {
-    console.log(file.data.date);
-    return {
-      slug,
-      title: file.data.title,
-      date: Math.floor(file.data.date.getTime() / 1000),
-      content: file.content,
-    };
-  }
+function slugToFilename(slug: string): string {
+  return `${slug}.md`;
 }
 
-function isPost(maybePost: Post | undefined): maybePost is Post {
-  return !!maybePost;
+async function fileToPost(file: GrayMatterFile<Input>, slug: string): Promise<Post> {
+  if (typeof file.data.title !== 'string' || !types.isDate(file.data.date)) {
+    throw new Error('Invalid post');
+  }
+  const renderedContent = await markdownProcessor.process(file.content);
+  return {
+    slug,
+    title: file.data.title,
+    date: Math.floor(file.data.date.getTime() / 1000),
+    content: renderedContent.toString(),
+  };
+}
+
+export async function getAllSlugs(): Promise<string[]> {
+  const filenames = await readdir(postsDirectory);
+  return filenames.map(filenameToSlug);
 }
 
 export async function getAllPosts(): Promise<Post[]> {
@@ -51,7 +57,16 @@ export async function getAllPosts(): Promise<Post[]> {
     return fileToPost(markdown, slug);
   });
 
-  const posts = await Promise.all(postPromises);
+  // Files that don't contain a valid post (such as a draft) are represented by a promise that rejects. Those are
+  // filtered out so that only valid posts are returned from this function.
+  return (await Promise.allSettled(postPromises))
+    .filter(r => r.status === 'fulfilled')
+    .map(r => (r as PromiseFulfilledResult<Post>).value);
+}
 
-  return posts.filter(isPost);
+export async function getPost(slug: string): Promise<Post> {
+  const fullFilename = pathJoin(postsDirectory, slugToFilename(slug));
+  const contents = await readFile(fullFilename, 'utf8');
+  const markdown = matter(contents);
+  return fileToPost(markdown, slug);
 }

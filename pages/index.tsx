@@ -1,58 +1,44 @@
-import Head from 'next/head'
+import type { GetStaticProps } from 'next';
+import { Post, getAllPosts } from '../lib/post';
+import { formatInTimeZone } from '../lib/date';
 import Layout from '../components/Layout'
+import Link from 'next/link';
 
-export default function Home() {
+interface HomeProps {
+  posts: Post[];
+}
+
+export default function Home({ posts }: HomeProps) {
   return (
     <Layout>
-      <div>
-        <main>
-          <h1>
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
-          </h1>
-
-          <p>
-            Get started by editing{' '}
-            <code>pages/index.js</code>
-          </p>
-
-          <div>
-            <a href="https://nextjs.org/docs">
-              <h3>Documentation &rarr;</h3>
-              <p>Find in-depth information about Next.js features and API.</p>
-            </a>
-
-            <a href="https://nextjs.org/learn">
-              <h3>Learn &rarr;</h3>
-              <p>Learn about Next.js in an interactive course with quizzes!</p>
-            </a>
-
-            <a href="https://github.com/vercel/next.js/tree/master/examples">
-              <h3>Examples &rarr;</h3>
-              <p>Discover and deploy boilerplate example Next.js projects.</p>
-            </a>
-
-            <a
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            >
-              <h3>Deploy &rarr;</h3>
-              <p>
-                Instantly deploy your Next.js site to a public URL with Vercel.
-              </p>
-            </a>
-          </div>
-        </main>
-
-        <footer>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{' '}
-            <img src="/vercel.svg" alt="Vercel Logo"/>
-          </a>
-        </footer>
-      </div>
+      <section className="max-w-screen-lg mx-auto px-4">
+        <h2 className="text-2xl font-banner">Recent Posts</h2>
+        <table className="w-full mx-0 mt-0 mb-4 p-0">
+          <tbody>
+            {posts.map((post) => (
+              <tr key={post.slug}>
+                <td className="pr-4 py-3 border-b border-opacity-10 text-right opacity-40">{formatInTimeZone(post.date * 1000, 'MMMM do, R', 'UTC')}</td>
+                <td className="pl-4 py-3 border-b border-opacity-10 text-left">
+                  <Link href={`/p/${post.slug}`} passHref={true}>
+                    <a className="text-red-700 underline">{post.title}</a>
+                  </Link>
+                </td>
+              </tr>
+             ))}
+          </tbody>
+        </table>
+      </section>
     </Layout>
   )
 }
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  // A query for all recent posts
+  const posts = await getAllPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};

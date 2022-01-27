@@ -52,7 +52,7 @@ export async function getAllPosts(): Promise<Post[]> {
   const postPromises = filenames.map(async (filename) => {
     const fullFilename = pathJoin(postsDirectory, filename);
     const slug = filenameToSlug(filename);
-    const contents = await readFile(fullFilename, 'utf8')
+    const contents = await readFile(fullFilename, 'utf8');
     const markdown = matter(contents);
     return fileToPost(markdown, slug);
   });

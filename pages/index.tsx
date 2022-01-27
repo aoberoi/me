@@ -29,7 +29,7 @@ export default function Home({ posts }: HomeProps) {
         </table>
       </section>
     </Layout>
-  )
+  );
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {

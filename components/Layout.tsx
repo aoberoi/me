@@ -17,5 +17,5 @@ export default function Layout({
     </Head>
     <Header />
     <div>{ children }</div>
-  </div>)
+  </div>);
 }

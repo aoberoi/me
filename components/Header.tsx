@@ -9,5 +9,5 @@ export default function Header() {
         </h1>
       </header>
     </div>
-  )
+  );
 }

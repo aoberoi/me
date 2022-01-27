@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (co
       notFound: true,
     };
   }
-}
+};
 
 export const getStaticPaths: GetStaticPaths<PostUrlQuery> = async () => {
   const slugs = await getAllSlugs();
@@ -49,5 +49,4 @@ export const getStaticPaths: GetStaticPaths<PostUrlQuery> = async () => {
     paths: slugs.map(slug => ({ params: { slug } })),
     fallback: false,
   };
-}
-
+};

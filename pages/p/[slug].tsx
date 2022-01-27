@@ -1,6 +1,6 @@
 import type { ParsedUrlQuery } from 'querystring';
-import type { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllSlugs, getPost, Post } from '../../lib/post'
+import type { GetStaticProps, GetStaticPaths } from 'next';
+import { getAllSlugs, getPost, Post } from '../../lib/post';
 import Layout from '../../components/Layout';
 
 interface PostProps {

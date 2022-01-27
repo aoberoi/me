@@ -1,6 +1,6 @@
 import type { ParsedUrlQuery } from 'querystring';
-import type { GetStaticProps, GetStaticPaths } from 'next'
-import { getAllSlugs, getPost, Post } from '../../lib/post'
+import type { GetStaticProps, GetStaticPaths } from 'next';
+import { getAllSlugs, getPost, Post } from '../../lib/post';
 import Layout from '../../components/Layout';
 
 interface PostProps {
@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (co
       notFound: true,
     };
   }
-}
+};
 
 export const getStaticPaths: GetStaticPaths<PostUrlQuery> = async () => {
   const slugs = await getAllSlugs();
@@ -49,5 +49,4 @@ export const getStaticPaths: GetStaticPaths<PostUrlQuery> = async () => {
     paths: slugs.map(slug => ({ params: { slug } })),
     fallback: false,
   };
-}
-
+};

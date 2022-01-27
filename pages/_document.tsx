@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=optional" rel="stylesheet" />
           <link rel="manifest" href="/manifest.webmanifest" />
           <link rel="icon" href="/favicon.ico" />
           {/* TODO: use webpack image loader to generate cache busting filenames (in the manifest file too) */}
@@ -18,6 +18,6 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }

@@ -9,6 +9,9 @@
   ],
   "rules": {
     // require or disallow use of semicolons instead of ASI
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+
+    // enforces the use of double quotes for all JSX attribute values that don't contain a double quote.
+    "jsx-quotes": ["error", "prefer-double"]
   }
 }

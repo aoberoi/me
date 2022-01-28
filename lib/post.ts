@@ -100,7 +100,7 @@ export async function getAllSlugs(): Promise<string[]> {
  *
  * @param n number of posts
  */
-export async function getRecentPosts(n = Infinity): Promise<Post[]> {
+export async function getRecentPosts(n = Infinity): Promise<PublishedPost[]> {
   const filenames = await readdir(postsDirectory);
   const postPromises = filenames.map((filename) => getPostFromLocation({ filename }));
 

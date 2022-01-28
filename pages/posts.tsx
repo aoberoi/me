@@ -1,11 +1,11 @@
 import type { GetStaticProps } from 'next';
-import { Post, getRecentPosts } from '../lib/post';
+import { PublishedPost, getRecentPosts } from '../lib/post';
 import { formatInTimeZone } from '../lib/date';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 
 interface PostsProps {
-  posts: Post[];
+  posts: PublishedPost[];
 }
 
 

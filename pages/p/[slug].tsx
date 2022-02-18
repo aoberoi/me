@@ -15,8 +15,8 @@ export default function PostPage({ post }: PostProps) {
   return (
     <Layout title={post.title}>
       <section className="max-w-screen-lg mx-auto px-4">
-        <h2 className="text-2xl font-banner my-2">{post.title}</h2>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: post.content }}/>
+        <h2 className="text-5xl uppercase tracking-tight leading-tight font-banner my-2">{post.title}</h2>
+        <div className="prose prose-neutral font-serif" dangerouslySetInnerHTML={{ __html: post.content }}/>
       </section>
     </Layout>
   );

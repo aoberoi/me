@@ -108,7 +108,7 @@ export async function getRecentPosts(n = Infinity): Promise<PublishedPost[]> {
     .filter(r => r.status === 'fulfilled')
     .map(r => (r as PromiseFulfilledResult<Post>).value);
   const publishedPosts = posts.filter(isPublished);
-  const sortedPosts = publishedPosts.sort((a, b) => a.date - b.date);
+  const sortedPosts = publishedPosts.sort((a, b) => b.date - a.date);
 
   return sortedPosts.slice(0, n - 1);
 }

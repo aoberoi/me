@@ -11,7 +11,7 @@ const defaultTitle = 'Ankur Oberoi';
 
 export default function Layout({ children, title }: LayoutProps) {
   const formattedTitle = title ?
-    `${title} | ${defaultTitle}` :
+    `${title} ⥋ ${defaultTitle}` :
     defaultTitle;
 
   return (

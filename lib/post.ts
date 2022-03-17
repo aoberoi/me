@@ -3,8 +3,9 @@ import { join as pathJoin } from 'path';
 import { types } from 'util';
 import { readdir, readFile } from 'fs/promises';
 import matter, { GrayMatterFile, Input } from 'gray-matter';
-import remark from 'remark';
+import { remark } from 'remark';
 import html from 'remark-html';
+import gfm from 'remark-gfm';
 
 export enum PostStatus {
   /** Visible on the site */
@@ -43,7 +44,9 @@ export type Post = PublishedPost | _PostBase;
 
 const postsDirectory = pathJoin(process.cwd(), '_posts');
 
-const markdownProcessor = remark().use(html);
+const markdownProcessor = remark()
+  .use(gfm)
+  .use(html);
 
 function filenameToSlug(filename: string): string {
   return filename.replace(/\.md$/, '');
@@ -54,6 +57,10 @@ function slugToFilename(slug: string): string {
 }
 
 async function fileToPost(file: GrayMatterFile<Input>, slug: string): Promise<Post> {
+  if (typeof file.data.environment === 'string' && file.data.environment !== process.env.NODE_ENV) {
+    throw new Error('Invalid post');
+  }
+
   if (typeof file.data.title !== 'string') {
     throw new Error('Invalid post');
   }
@@ -62,6 +69,7 @@ async function fileToPost(file: GrayMatterFile<Input>, slug: string): Promise<Po
   const date = file.data.date;
 
   if (types.isDate(date)) {
+    // PublishedPost
     return {
       slug,
       title: file.data.title,

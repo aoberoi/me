@@ -7,15 +7,20 @@ interface LayoutProps {
   title?: string;
 }
 
-export default function Layout({
-  children,
-  title = 'Ankur Oberoi',
-}: LayoutProps) {
-  return (<div>
-    <Head>
-      <title>{ title }</title>
-    </Head>
-    <Header />
-    <div>{ children }</div>
-  </div>);
+const defaultTitle = 'Ankur Oberoi';
+
+export default function Layout({ children, title }: LayoutProps) {
+  const formattedTitle = title ?
+    `${title} ⥋ ${defaultTitle}` :
+    defaultTitle;
+
+  return (
+    <div>
+      <Head>
+        <title>{ formattedTitle  }</title>
+      </Head>
+      <Header />
+      <div>{ children }</div>
+    </div>
+  );
 }

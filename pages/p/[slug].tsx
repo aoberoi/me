@@ -1,6 +1,6 @@
 import type { ParsedUrlQuery } from 'querystring';
 import type { GetStaticProps, GetStaticPaths } from 'next';
-import { getAllSlugs, getPost, Post } from '../../lib/post';
+import { getAllSlugs, getPostFromLocation, Post } from '../../lib/post';
 import Layout from '../../components/Layout';
 
 interface PostProps {
@@ -13,10 +13,10 @@ interface PostUrlQuery extends ParsedUrlQuery {
 
 export default function PostPage({ post }: PostProps) {
   return (
-    <Layout>
+    <Layout title={post.title}>
       <section className="max-w-screen-lg mx-auto px-4">
-        <h2 className="text-2xl font-banner my-2">{post.title}</h2>
-        <div className="prose" dangerouslySetInnerHTML={{ __html: post.content }}/>
+        <h2 className="text-5xl uppercase tracking-tight leading-tight font-banner my-2">{post.title}</h2>
+        <div className="prose prose-neutral font-serif" dangerouslySetInnerHTML={{ __html: post.content }}/>
       </section>
     </Layout>
   );
@@ -33,7 +33,7 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (co
   try {
     return {
       props: {
-        post: await getPost(slug),
+        post: await getPostFromLocation({ slug }),
       },
     };
   } catch {

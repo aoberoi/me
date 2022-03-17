@@ -6,11 +6,13 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        banner: ['"Playfair Display"', ...defaultTheme.fontFamily.serif],
+        banner: ['Oswald', ...defaultTheme.fontFamily.sans],
+        ui: ['"Source Sans Pro"', ...defaultTheme.fontFamily.sans],
+        serif: ['Quattrocento', ...defaultTheme.fontFamily.serif],
       },
     },
   },
   plugins: [
     typography,
   ],
-}
+};
